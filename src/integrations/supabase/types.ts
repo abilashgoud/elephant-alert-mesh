@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contacts: {
+        Row: {
+          consent: boolean
+          created_at: string
+          id: string
+          name: string
+          phone: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          consent?: boolean
+          created_at?: string
+          id?: string
+          name: string
+          phone: string
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          consent?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      mesh_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          message: string | null
+          metadata: Json | null
+          node_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          message?: string | null
+          metadata?: Json | null
+          node_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          message?: string | null
+          metadata?: Json | null
+          node_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
