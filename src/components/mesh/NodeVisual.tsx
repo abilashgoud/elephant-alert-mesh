@@ -26,14 +26,14 @@ const NodeVisual = ({ node, onClick, disabled, status }: NodeVisualProps) => {
         isSensor && !disabled && "cursor-pointer hover:scale-110",
         disabled && "opacity-60"
       )}
-      style={{ left: node.x, top: node.y }}
+      style={{ left: `${node.x}%`, top: `${node.y}%` }}
       onClick={onClick}
     >
       {/* Pulse animation when active */}
       {isActive && (
         <div className="absolute inset-0 animate-ping">
           <div className={cn(
-            "w-16 h-16 rounded-full",
+            "w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full",
             isSensor ? "bg-primary/30" : "bg-accent/30"
           )} />
         </div>
@@ -42,7 +42,7 @@ const NodeVisual = ({ node, onClick, disabled, status }: NodeVisualProps) => {
       {/* Node circle */}
       <div
         className={cn(
-          "relative w-16 h-16 rounded-full flex items-center justify-center shadow-node transition-all",
+          "relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center shadow-node transition-all",
           isSensor
             ? isActive
               ? "bg-gradient-primary shadow-glow"
@@ -54,20 +54,20 @@ const NodeVisual = ({ node, onClick, disabled, status }: NodeVisualProps) => {
       >
         {isSensor ? (
           <Radio className={cn(
-            "w-6 h-6",
+            "w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6",
             isActive ? "text-primary-foreground animate-pulse" : "text-primary-foreground"
           )} />
         ) : (
           <Wifi className={cn(
-            "w-6 h-6",
+            "w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6",
             isActive ? "text-accent-foreground animate-pulse" : "text-accent-foreground"
           )} />
         )}
       </div>
 
       {/* Label */}
-      <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-        <span className="text-xs font-medium text-foreground bg-card/80 px-2 py-1 rounded backdrop-blur-sm">
+      <div className="absolute top-full mt-1 sm:mt-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
+        <span className="text-xs font-medium text-foreground bg-card/80 px-1 sm:px-2 py-1 rounded backdrop-blur-sm">
           {node.id}
         </span>
       </div>

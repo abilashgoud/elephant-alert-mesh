@@ -22,7 +22,7 @@ interface MeshEvent {
   event_type: string;
   node_id: string | null;
   message: string | null;
-  metadata: any;
+  metadata: Record<string, unknown> | null;
   created_at: string;
 }
 
@@ -166,11 +166,12 @@ const MeshSimulation = () => {
           variant: "destructive",
         });
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Alert simulation error:", error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
       toast({
         title: "❌ Alert Failed",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
@@ -180,27 +181,27 @@ const MeshSimulation = () => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 lg:gap-6">
         {/* Main Grid Area */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card className="p-6 bg-card border-border">
-            <div className="flex items-center justify-between mb-4">
+        <div className="xl:col-span-2 space-y-4 lg:space-y-6">
+          <Card className="p-4 lg:p-6 bg-card border-border">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
               <div>
-                <h2 className="text-2xl font-bold text-foreground flex items-center gap-2">
-                  <Activity className="w-6 h-6 text-primary" />
+                <h2 className="text-xl lg:text-2xl font-bold text-foreground flex items-center gap-2">
+                  <Activity className="w-5 h-5 lg:w-6 lg:h-6 text-primary" />
                   Mesh Network Visualization
                 </h2>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="text-xs sm:text-sm text-muted-foreground mt-1">
                   Click on a sensor node to trigger an elephant alert
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-sm">
+              <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm">
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-full bg-primary shadow-glow"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-primary shadow-glow"></div>
                   <span className="text-muted-foreground">Sensor</span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <div className="w-3 h-3 rounded-full bg-accent"></div>
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-accent"></div>
                   <span className="text-muted-foreground">Gateway</span>
                 </div>
               </div>
@@ -213,28 +214,28 @@ const MeshSimulation = () => {
             />
           </Card>
 
-          <Card className="p-6 bg-card border-border">
+          <Card className="p-4 lg:p-6 bg-card border-border">
             <div className="flex items-center gap-2 mb-4">
-              <Zap className="w-5 h-5 text-accent" />
-              <h3 className="text-xl font-semibold text-foreground">
+              <Zap className="w-4 h-4 lg:w-5 lg:h-5 text-accent" />
+              <h3 className="text-lg lg:text-xl font-semibold text-foreground">
                 How It Works
               </h3>
             </div>
-            <div className="space-y-3 text-sm text-muted-foreground">
+            <div className="space-y-3 text-xs sm:text-sm text-muted-foreground">
               <div className="flex gap-3">
-                <span className="text-primary font-bold">1.</span>
+                <span className="text-primary font-bold flex-shrink-0">1.</span>
                 <p>A sensor node detects elephant movement and triggers an alert</p>
               </div>
               <div className="flex gap-3">
-                <span className="text-primary font-bold">2.</span>
+                <span className="text-primary font-bold flex-shrink-0">2.</span>
                 <p>The alert hops through nearby mesh nodes until it reaches a gateway</p>
               </div>
               <div className="flex gap-3">
-                <span className="text-primary font-bold">3.</span>
+                <span className="text-primary font-bold flex-shrink-0">3.</span>
                 <p>The gateway sends real SMS messages via Twilio to all consenting contacts</p>
               </div>
               <div className="flex gap-3">
-                <span className="text-primary font-bold">4.</span>
+                <span className="text-primary font-bold flex-shrink-0">4.</span>
                 <p>Farmers and officers receive instant alerts to take precautions</p>
               </div>
             </div>
@@ -242,7 +243,7 @@ const MeshSimulation = () => {
         </div>
 
         {/* Event Log Sidebar */}
-        <div className="lg:col-span-1">
+        <div className="xl:col-span-1">
           <EventLog events={events} />
         </div>
       </div>

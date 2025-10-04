@@ -61,7 +61,7 @@ const Contacts = () => {
       setFormData({ name: "", role: "farmer", phone: "", consent: true });
       toast({ title: "✅ Contact added successfully" });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       toast({ 
         title: "❌ Failed to add contact", 
         description: error.message,
@@ -88,7 +88,7 @@ const Contacts = () => {
       setEditingId(null);
       toast({ title: "✅ Contact updated successfully" });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       toast({ 
         title: "❌ Failed to update contact", 
         description: error.message,
@@ -111,7 +111,7 @@ const Contacts = () => {
       queryClient.invalidateQueries({ queryKey: ["contacts"] });
       toast({ title: "✅ Contact deleted successfully" });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       toast({ 
         title: "❌ Failed to delete contact", 
         description: error.message,
@@ -127,21 +127,21 @@ const Contacts = () => {
 
   return (
     <Layout>
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-6 lg:space-y-8">
         <div>
-          <h2 className="text-3xl font-bold text-foreground mb-2">
+          <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-2">
             Contact Management
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-sm lg:text-base text-muted-foreground">
             Add and manage farmers and officers who will receive SMS alerts
           </p>
         </div>
 
         {/* Add Contact Form */}
-        <Card className="p-6 bg-card border-border">
-          <h3 className="text-xl font-semibold mb-4 text-foreground">Add New Contact</h3>
+        <Card className="p-4 lg:p-6 bg-card border-border">
+          <h3 className="text-lg lg:text-xl font-semibold mb-4 text-foreground">Add New Contact</h3>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input
@@ -180,7 +180,7 @@ const Contacts = () => {
                   className="bg-background"
                 />
               </div>
-              <div className="flex items-center space-x-2 pt-8">
+              <div className="flex items-center space-x-2 pt-6 sm:pt-8">
                 <Checkbox
                   id="consent"
                   checked={formData.consent}
@@ -188,12 +188,12 @@ const Contacts = () => {
                     setFormData({ ...formData, consent: checked as boolean })
                   }
                 />
-                <Label htmlFor="consent" className="cursor-pointer">
+                <Label htmlFor="consent" className="cursor-pointer text-sm">
                   Consent to receive SMS alerts
                 </Label>
               </div>
             </div>
-            <Button type="submit" className="bg-gradient-primary hover:opacity-90">
+            <Button type="submit" className="bg-gradient-primary hover:opacity-90 w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Contact
             </Button>

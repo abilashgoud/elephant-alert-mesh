@@ -8,7 +8,7 @@ interface MeshEvent {
   event_type: string;
   node_id: string | null;
   message: string | null;
-  metadata: any;
+  metadata: Record<string, unknown> | null;
   created_at: string;
 }
 
@@ -61,31 +61,31 @@ const EventLog = ({ events }: EventLogProps) => {
   };
 
   return (
-    <Card className="p-6 bg-card border-border h-full">
+    <Card className="p-4 lg:p-6 bg-card border-border h-full">
       <div className="flex items-center gap-2 mb-4">
-        <Activity className="w-5 h-5 text-primary" />
-        <h3 className="text-xl font-semibold text-foreground">Live Event Log</h3>
+        <Activity className="w-4 h-4 lg:w-5 lg:h-5 text-primary" />
+        <h3 className="text-lg lg:text-xl font-semibold text-foreground">Live Event Log</h3>
       </div>
       
-      <ScrollArea className="h-[600px] pr-4">
+      <ScrollArea className="h-[300px] sm:h-[400px] lg:h-[600px] pr-2 lg:pr-4">
         {events.length === 0 ? (
-          <p className="text-muted-foreground text-sm text-center py-8">
+          <p className="text-muted-foreground text-xs sm:text-sm text-center py-6 lg:py-8">
             No events yet. Click a sensor to trigger an alert!
           </p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2 lg:space-y-3">
             {events.map((event) => (
               <div
                 key={event.id}
                 className={cn(
-                  "p-3 bg-background rounded-lg border-l-4 transition-all hover:bg-secondary/30",
+                  "p-2 lg:p-3 bg-background rounded-lg border-l-4 transition-all hover:bg-secondary/30",
                   getEventColor(event.event_type)
                 )}
               >
                 <div className="flex items-start gap-2">
                   {getEventIcon(event.event_type)}
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground">
+                    <p className="text-xs sm:text-sm font-medium text-foreground leading-tight">
                       {event.message}
                     </p>
                     {event.node_id && (
